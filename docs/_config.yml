@@ -1,0 +1,4 @@
+# This config is for the /docs subdirectory when using GitHub Pages
+theme: jekyll-theme-cayman
+title: FlashPass API Documentation
+description: External API Reference

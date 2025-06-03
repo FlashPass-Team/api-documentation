@@ -1,0 +1,22 @@
+title: FlashPass API Documentation
+description: External API documentation for FlashPass menu and user management
+theme: jekyll-theme-cayman
+show_downloads: false
+google_analytics: 
+
+# Theme settings
+github:
+  is_project_page: true
+  repository_url: https://github.com/FlashPass-Team/api-documentation
+  repository_name: api-documentation
+  owner_url: https://github.com/FlashPass-Team
+  owner_name: FlashPass Team
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: API Reference
+    url: /docs/
+  - title: Support
+    url: mailto:support@flashpass.com.ar
