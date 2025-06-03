@@ -41,7 +41,7 @@ Some endpoints require both API key and Bearer token for enhanced security.
 
 Authenticate users without passwords using your secret key.
 
-**Endpoint:** `POST /public/auth/trusted-login`
+**Endpoint:** `POST https://apiv2.flashpass.com.ar/public/auth/trusted-login`
 
 **Headers:**
 - `X-Api-Key: sk_your_secret_key` (required)
@@ -92,7 +92,7 @@ Authenticate users without passwords using your secret key.
 
 Generate a login URL for users to access a specific menu.
 
-**Endpoint:** `GET /api/public/menus/login-url`
+**Endpoint:** `GET https://apiv2.flashpass.com.ar/public/menus/login-url`
 
 **Headers:**
 - `Authorization: Bearer {user_token}` (required)
@@ -105,10 +105,7 @@ Generate a login URL for users to access a specific menu.
 {
   "success": true,
   "data": {
-    "url": "https://app.flashpass.com.ar/google_auth?jwt=eyJ...",
-    "menu_path": "menu/caramelo-palermo",
-    "customer_code": "ABC123",
-    "customer_id": 123
+    "url": "https://app.flashpass.com.ar/google_auth?jwt=eyJ..."
   }
 }
 ```
@@ -116,13 +113,12 @@ Generate a login URL for users to access a specific menu.
 **Notes:**
 - Only works for menus belonging to producer 628
 - Validates menu access through `availableMenus` in JWT token
-- URL does not include `?login=waiter` parameter
 
 ### 3. Check Credit Line
 
 Check a user's available credit for a specific menu.
 
-**Endpoint:** `GET /api/public/menus/credit-lines/check`
+**Endpoint:** `GET https://apiv2.flashpass.com.ar/public/menus/credit-lines/check`
 
 **Headers:**
 - `Authorization: Bearer {user_token}` (required)
@@ -152,7 +148,7 @@ Check a user's available credit for a specific menu.
 
 Request credit usage up to the available limit.
 
-**Endpoint:** `POST /api/public/menus/credit-lines/request`
+**Endpoint:** `POST https://apiv2.flashpass.com.ar/public/menus/credit-lines/request`
 
 **Headers:**
 - `Authorization: Bearer {user_token}` (required)
@@ -182,7 +178,7 @@ Request credit usage up to the available limit.
 
 Add a user to a credit line with a specified limit.
 
-**Endpoint:** `POST /api/public/menus/credit-lines/users`
+**Endpoint:** `POST https://apiv2.flashpass.com.ar/public/menus/credit-lines/users`
 
 **Headers:**
 - `X-Api-Key: sk_your_secret_key` (required)
@@ -213,7 +209,7 @@ Add a user to a credit line with a specified limit.
 
 Deactivate a user's credit line.
 
-**Endpoint:** `DELETE /api/public/menus/credit-lines/users`
+**Endpoint:** `DELETE https://apiv2.flashpass.com.ar/public/menus/credit-lines/users`
 
 **Headers:**
 - `X-Api-Key: sk_your_secret_key` (required)
@@ -278,7 +274,7 @@ Common HTTP status codes:
 const axios = require('axios');
 
 // Configuration
-const API_BASE_URL = 'https://api.flashpass.com.ar';
+const API_BASE_URL = 'https://apiv2.flashpass.com.ar';
 const SECRET_KEY = 'sk_your_secret_key_here';
 
 // 1. Authenticate user
@@ -301,7 +297,7 @@ async function authenticateUser(email, userData = {}) {
 async function checkCreditLine(token, menuId) {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/public/menus/credit-lines/check`,
+      `${API_BASE_URL}/public/menus/credit-lines/check`,
       {
         params: { menu_id: menuId },
         headers: { 'Authorization': `Bearer ${token}` }
@@ -319,7 +315,7 @@ async function checkCreditLine(token, menuId) {
 async function requestCredit(token, menuId, amount, description) {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}/api/public/menus/credit-lines/request`,
+      `${API_BASE_URL}/public/menus/credit-lines/request`,
       { menu_id: menuId, amount, description },
       { headers: { 'Authorization': `Bearer ${token}` } }
     );
